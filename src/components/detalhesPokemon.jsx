@@ -13,16 +13,19 @@ const DetalhesPokemon = ({route, isInPokedex}) => {
     const [showModal, setShowModal] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
 
-    const adicionarPokemon = (pokemon) => {
-        setIsAdded(true)
-        setPokedex(prevPokedex => [...prevPokedex, pokemon])
-
+    const modal = () => {
         setShowModal(true)
-
 
         setTimeout(() => {
             setShowModal(false)
         }, 1500);
+    }
+
+    const adicionarPokemon = (pokemon) => {
+        setIsAdded(true)
+        setPokedex(prevPokedex => [...prevPokedex, pokemon])
+
+        modal()
 
     }
 
@@ -33,37 +36,81 @@ const DetalhesPokemon = ({route, isInPokedex}) => {
         const novoPokedex = pokedex.filter(item => item.name !== pokemon.name)
 
         setPokedex(novoPokedex)
+
+        modal()
+
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <ModalMessage  showModal={showModal} isAdded={isAdded}/>
 
-            <Text>Nome: {pokemon.name}</Text>
-            <Text>Peso: {pokemon.weight}</Text>
-            <Text>Ataques: {pokemon.moves.map((item, index) => {
-                if(index < 5) {
-                    return  `${item.move.name}, `
-                }
+            <View style={styles.linha}>
+                <Text style={styles.texts}>Nome: </Text>
+                <Text style={styles.propriedades}>{pokemon.name}</Text>
+            </View>
+            <View style={styles.linha}>
+                <Text style={styles.texts}>Peso: </Text>
+                <Text style={styles.propriedades}>{pokemon.weight}</Text>
+            </View>
+            <View style={styles.linha}>
+                <Text style={styles.texts}>Ataques: </Text>
+                <View>
+                    {pokemon.moves.map((item, index) => {
+                        if(index < 5) {
+                            return  <Text style={styles.propriedades}>{item.move.name} </Text>
+                        }
+                    })}
+                </View>
+            </View>
+            <View style={styles.linha}>
+                <Text style={styles.texts}>Tipo: </Text>
+                {pokemon.types.map((item) => {
+                    return  <Text style={styles.propriedades}>{item.type.name}</Text>       
                 })}
-            </Text>
-            <Text>Tipo: {pokemon.types.map((item) => {
-                return  `${item.type.name},`
-                })}
-            </Text>
-            {!isInPokedex ? (
+            </View>
+
+            <View style={styles.buttons}>
                 <Button
-                    title='Adicionar à pokedex'
-                    onPress={() => adicionarPokemon(pokemon)}
+                    title={!isInPokedex ? 'Adicionar à pokedex' : 'Remover da pokedex' }
+                    onPress={!isInPokedex ? () => adicionarPokemon(pokemon) : () => removerPokemon(pokemon)}
                 />
-            ) : (
-                <Button
-                    title='Remover da pokedex'
-                    onPress={() => removerPokemon(pokemon)}
-                />
-                )}
+            </View>
+
+
         </View>
     )
 }
 
 export default DetalhesPokemon;
+
+
+const styles = StyleSheet.create({
+
+    container: {
+        margin: 24,
+        display: 'flex',
+        
+    },
+
+    linha: {
+        flexDirection: 'row'
+    },
+
+    texts: {
+        fontSize: 24,
+        marginTop: 16,
+        fontWeight: 'bold',
+    },
+
+    propriedades: {
+        fontSize: 24,
+        marginTop: 16,
+    },
+
+    buttons: {
+        marginTop: 18
+    }
+
+
+  });

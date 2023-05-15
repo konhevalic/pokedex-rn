@@ -16,12 +16,10 @@ const ModalMessage = ({showModal, isAdded}) => {
                 <View style={styles.modalView}>
                     {isAdded ? (
                         <Text>Pokemon adicionado à pokedex</Text>
-                    ) : (
-                        <Text>Pokemon removido da pokedex</Text>
-                    )
-                        
+                        ) : (
+                            <Text>Pokemon removido da pokedex</Text>
+                        )
                     }
-                    
                 </View>
             </View>
         </Modal>

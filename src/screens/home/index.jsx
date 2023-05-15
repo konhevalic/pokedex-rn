@@ -10,7 +10,7 @@ const Home = ({navigation}) => {
 
     const {pokemons} = useContext(GlobalStateContext)
 
-    const navigationState = useNavigationState((state) => state);
+    const navigationState = useNavigationState((state) => state); 
     const { index } = navigationState;
 
     return (
@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
         width:150,
         height:150,
         resizeMode:'contain',
-        margin:8,
+        margin:8, 
     }
   });

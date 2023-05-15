@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -13,11 +13,44 @@ import Pokedex from './src/screens/pokedex';
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
+const CustomTabBarIcon = ({ focused, icon }) => {
+  const iconSize = focused ? 30 : 25;
+  return (
+    <Image
+      source={icon}
+      style={{ width: iconSize, height: iconSize}}
+    />
+  );
+}
+
+
 const ListaPokemons = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Pokedex" component={Pokedex} />
+      <Tab.Screen 
+        name="Home" 
+        component={Home} 
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ focused }) =>
+            CustomTabBarIcon({
+              focused,
+              icon: require('./src/assets/pokebola.png'),
+            }),
+        }}
+      />
+      <Tab.Screen 
+        name="Pokedex" 
+        component={Pokedex}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ focused }) =>
+            CustomTabBarIcon({
+              focused,
+              icon: require('./src/assets/pikachu.png'),
+            }),
+        }}
+      />
     </Tab.Navigator>
   )
 }

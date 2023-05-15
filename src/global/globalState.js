@@ -23,9 +23,7 @@ const GlobalState = (props) => {
                 if(listPokemons.length === 20) {
                     setPokemons(listPokemons)
                 }
-            }
-                
-            )
+            })
             .catch(err => console.log(err))
         })
     }, [pokemonNames] )

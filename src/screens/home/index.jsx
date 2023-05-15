@@ -4,6 +4,7 @@ import GlobalStateContext from '../../global/globalStateContext'
 
 import { View, StyleSheet, Image, Text, FlatList, Button } from 'react-native'
 import ListaPokemons from '../../components/listaPokemons'
+import SearchPokemon from '../../components/searchPokemon';
 
 const Home = ({navigation}) => {
 
@@ -13,11 +14,15 @@ const Home = ({navigation}) => {
     const { index } = navigationState;
 
     return (
+      <View>
+        <SearchPokemon />
         <ListaPokemons 
             navigation={navigation}
             pokemons={pokemons}
             index={index}
         />
+      </View>
+        
     )
 }
 
@@ -28,7 +33,6 @@ const styles = StyleSheet.create({
         marginHorizontal: "auto",
         width: 400,
         flexDirection: "row",
-        flexWrap: "wrap",
         maxWidth: '100%'
       },
       item: {
